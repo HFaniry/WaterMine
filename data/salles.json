@@ -1,0 +1,11 @@
+{
+    "Groupe1": [
+      { "email": "fan@gmail.com", "prenom": "Fan", "content": "Salut les gars", "timestamp": "10:00" },
+      { "email": "fan2@gmail.com", "prenom": "Fan2", "content": "Ça va?", "timestamp": "10:10" }
+    ],
+    "Groupe2": [
+      { "email": "fan3@gmail.com", "prenom": "Fan3", "content": "Coucou", "timestamp": "10:00" },
+      { "email": "fan4@gmail.com", "prenom": "Fan4", "content": "Yep?", "timestamp": "10:20" }
+    ]
+  }
+  
