@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { Menu } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -26,7 +25,6 @@ const authItems = [
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false)
   const [isLoggedIn, setIsLoggedIn] = React.useState(false)
-  const router = useRouter()
 
   React.useEffect(() => {
     // Vérifiez si l'utilisateur est connecté
@@ -37,7 +35,6 @@ export function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("user_email") // Supprimez le token ou toute info d'authentification
     setIsLoggedIn(false) // Mettez à jour l'état pour refléter la déconnexion
-    router.push("/") // Redirigez l'utilisateur vers la page d'accueil
   }
 
   // Classe commune pour un style uniforme
@@ -49,6 +46,9 @@ export function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container flex items-center justify-between p-4">
         <Link href="/" className="flex items-center space-x-2">
+          {/* Image du logo agrandie, deux fois plus grand */}
+          <img src="/logo.png" alt="Logo" className="h-20 w-auto" />
+          {/* Texte du logo */}
           <span className="text-2xl font-bold">WaterMine</span>
         </Link>
         {/* Navigation Desktop */}
