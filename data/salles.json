@@ -1,90 +1,13 @@
 {
-  "Groupe1": [
+  "Info Problème": [],
+  "Ecosysteme": [],
+  "Questions": [],
+  "Solution": [
     {
-      "email": "fan@gmail.com",
-      "prenom": "Fan",
-      "content": "Salut les gars",
-      "timestamp": "10:00"
-    },
-    {
-      "email": "fan2@gmail.com",
-      "prenom": "Fan2",
-      "content": "Ça va?",
-      "timestamp": "10:10"
-    },
-    {
-      "email": "fan@gmail.com",
-      "prenom": "Fan",
-      "content": "ouai et toi",
-      "timestamp": "03:24:18"
-    },
-    {
-      "email": "faniry@gmail.com",
-      "prenom": "Faniry",
-      "content": "yo",
-      "timestamp": "03:33:13"
-    },
-    {
-      "email": "faniry@gmail.com",
-      "prenom": "Faniry",
-      "content": "szadzedze",
-      "timestamp": "03:37:32"
-    },
-    {
-      "email": "faniry@gmail.com",
-      "prenom": "Faniry",
-      "content": "ezdedz",
-      "timestamp": "03:37:34"
-    },
-    {
-      "email": "faniry@gmail.com",
-      "prenom": "Faniry",
-      "content": "azazdazdz",
-      "timestamp": "03:37:51"
-    },
-    {
-      "email": "faniry@gmail.com",
-      "prenom": "Faniry",
-      "content": "zazadzaz",
-      "timestamp": "03:37:54"
-    },
-    {
-      "email": "faniry@gmail.com",
-      "prenom": "Faniry",
-      "content": "dzezed",
-      "timestamp": "03:42:17"
-    },
-    {
-      "email": "faniry@gmail.com",
-      "prenom": "Faniry",
-      "content": "zedzedzedez",
-      "timestamp": "03:42:20"
-    },
-    {
-      "email": "faniry@gmail.com",
-      "prenom": "Faniry",
-      "content": "zedzedez",
-      "timestamp": "03:42:23"
-    },
-    {
-      "email": "faniry@gmail.com",
-      "prenom": "Faniry",
-      "content": "ça bva",
-      "timestamp": "04:05:49"
-    }
-  ],
-  "Groupe2": [
-    {
-      "email": "fan3@gmail.com",
-      "prenom": "Fan3",
-      "content": "Coucou",
-      "timestamp": "10:00"
-    },
-    {
-      "email": "fan4@gmail.com",
-      "prenom": "Fan4",
-      "content": "Yep?",
-      "timestamp": "10:20"
+      "email": "wendy@gmail.com",
+      "prenom": "Wendy",
+      "content": "Si vous avez des idées de solution pour limité les risque de pollution dans l'eau parler ici",
+      "timestamp": "05:30:22"
     }
   ]
 }
