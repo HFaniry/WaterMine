@@ -14,9 +14,10 @@ import {
 
 const navItems = [
   { href: "/", label: "Accueil" },
-  { href: "/a-propos", label: "À propos" },
-  { href: "/services", label: "Services" },
   { href: "/contact", label: "Contact" },
+  { href: "/salles", label: "Salons" },
+  { href: "/connexion", label: "Connexion" },
+  { href: "/inscription", label: "Inscription" },
 ]
 
 export function Navbar() {
@@ -26,7 +27,7 @@ export function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container flex items-center justify-between p-4">
         <Link href="/" className="flex items-center space-x-2">
-          <span className="text-2xl font-bold">Logo</span>
+          <span className="text-2xl font-bold">WaterMine</span>
         </Link>
         <div className="hidden md:flex space-x-4">
           {navItems.map((item) => (

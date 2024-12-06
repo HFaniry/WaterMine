@@ -10,7 +10,6 @@ import { Users, Send } from 'lucide-react'
 import { cn } from "@/lib/utils"
 import { useRouter } from 'next/navigation'
 
-// Types pour nos données
 type Message = {
   email: string
   prenom: string
@@ -18,126 +17,110 @@ type Message = {
   timestamp: string
 }
 
-type Group = {
-  name: string
-  messages: Message[]
-}
-
 export default function MessengerGroups() {
-  const router = useRouter()  // Hook de redirection
+  const router = useRouter()
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null)
   const [groups, setGroups] = useState<string[]>([])
   const [groupMessages, setGroupMessages] = useState<Message[]>([])
   const [newMessage, setNewMessage] = useState("")
-  const [email, setEmail] = useState<string>("")  // Exemple d'email connecté
-  const [prenom, setPrenom] = useState<string>("") // Exemple de prénom de l'utilisateur
+  const [email, setEmail] = useState<string>("")
+  const [prenom, setPrenom] = useState<string>("")
+  const [loading, setLoading] = useState(true) // Indicateur de chargement
 
-  // Vérifier si l'utilisateur est connecté en récupérant l'email depuis le localStorage
   useEffect(() => {
-    const userEmail = localStorage.getItem('user_email') // Récupère l'email du localStorage
-    if (userEmail) {
-      setEmail(userEmail) // Mettre à jour l'état avec l'email récupéré
-      
-      // Extraire le prénom à partir de l'email (partie avant le '@')
-      const extractedPrenom = userEmail.split('@')[0] // Prenom est tout ce qui est avant le '@'
-      setPrenom(extractedPrenom.charAt(0).toUpperCase() + extractedPrenom.slice(1)) // Capitaliser la première lettre
-    } else {
-      // Rediriger l'utilisateur vers la page de connexion s'il n'est pas connecté
-      console.error("Aucun email trouvé dans le localStorage")
-      router.push('/connexion') // Redirection vers la page de connexion
+    const initData = async () => {
+      try {
+        const userEmail = localStorage.getItem('user_email')
+        if (!userEmail) {
+          console.error("Aucun email trouvé dans le localStorage")
+          router.push('/connexion')
+          return
+        }
+
+        setEmail(userEmail)
+        const extractedPrenom = userEmail.split('@')[0]
+        setPrenom(extractedPrenom.charAt(0).toUpperCase() + extractedPrenom.slice(1))
+
+        const groupRes = await fetch('/api/groupes')
+        if (!groupRes.ok) throw new Error('Erreur lors du chargement des groupes')
+        const groupData = await groupRes.json()
+        setGroups(groupData)
+      } catch (error) {
+        console.error("Erreur d'initialisation :", error)
+      } finally {
+        setLoading(false) // Chargement terminé
+      }
     }
+
+    initData()
   }, [])
 
-  // Charger les messages du groupe sélectionné
   useEffect(() => {
     if (!selectedGroup) return
 
-    const fetchData = async () => {
+    const fetchMessages = async () => {
       try {
         const res = await fetch(`/api/salles?groupName=${selectedGroup}`)
+        if (!res.ok) throw new Error('Erreur lors du chargement des messages')
         const data = await res.json()
-
-        if (res.ok) {
-          setGroupMessages(data)
-        } else {
-          console.error('Erreur:', data.message)
-        }
+        setGroupMessages(data)
       } catch (error) {
-        console.error('Erreur lors du chargement des messages:', error)
-      }
-
-
-      try {
-        const res = await fetch(`/api/groupes`)
-        const data = await res.json()
-        if (res.ok) {
-          setGroups(data)
-        } else {
-          console.error('Erreur:', data.message)
-        }
-      } catch (error) {
-        console.error('Erreur lors du chargement des messages:', error)
+        console.error("Erreur lors du chargement des messages :", error)
       }
     }
 
-    fetchData()
+    fetchMessages()
   }, [selectedGroup])
 
-  // Envoyer un message
   const handleSendMessage = async () => {
     if (newMessage.trim() !== "") {
-      // Formatage de la date et de l'heure
-      const now = new Date();
+      const now = new Date()
       const date = now.toLocaleDateString('fr-FR', {
-        weekday: 'short', // Jour abrégé (ex. "lun.")
+        weekday: 'short',
         year: 'numeric',
-        month: 'short',  // Mois abrégé (ex. "janv.")
-        day: 'numeric'
-      });
-      const time = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        month: 'short',
+        day: 'numeric',
+      })
+      const time = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
 
-      // Nouveau message avec date et heure
       const newMessageObj = {
         email,
         prenom,
         content: newMessage,
-        timestamp: `${time} | ${date}`, // Combine l'heure et la date
+        timestamp: `${time} | ${date}`,
       }
 
-      // Envoyer le message au serveur pour l'ajouter dans le groupe
       try {
         const response = await fetch('/api/salles', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            groupName: selectedGroup, // Nom du groupe sélectionné
+            groupName: selectedGroup,
             email,
             prenom,
             content: newMessage,
           }),
         })
 
-        const data = await response.json()
-
         if (response.ok) {
-          // Mettre à jour l'état local pour afficher le message immédiatement
           setGroupMessages([...groupMessages, newMessageObj])
-          setNewMessage("") // Réinitialiser le champ de message
+          setNewMessage("")
         } else {
-          console.error('Erreur lors de l\'ajout du message:', data.message)
+          console.error('Erreur lors de l\'envoi du message')
         }
       } catch (error) {
-        console.error('Erreur lors de l\'envoi du message:', error)
+        console.error('Erreur lors de l\'envoi du message', error)
       }
     }
+  }
+
+  if (loading) {
+    return <p className="text-center text-gray-500 mt-8">Chargement des données...</p>
   }
 
   return (
     <div className="w-full max-w-6xl mx-auto mt-8">
       <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-4">
-        {/* Liste des groupes */}
         <Card className="w-full h-[500px] bg-white overflow-hidden">
           <CardContent className="p-0 h-full">
             <div className="p-4 border-b">
@@ -167,17 +150,14 @@ export default function MessengerGroups() {
           </CardContent>
         </Card>
 
-        {/* Affichage des messages */}
         <Card className="w-full h-[500px] bg-white overflow-hidden">
           <CardContent className="p-0 h-full flex flex-col">
             <div className="p-4 border-b border-gray-200 bg-white">
               <h2 className="text-lg font-semibold flex items-center text-blue-600">
                 <Users className="mr-2" />
-                {selectedGroup ? selectedGroup : "Sélectionnez un groupe"}
+                {selectedGroup || "Sélectionnez un groupe"}
               </h2>
             </div>
-
-            {/* ScrollArea pour les messages */}
             <ScrollArea className="flex-1 overflow-y-auto">
               <div className="p-4 space-y-4">
                 {groupMessages.length > 0 ? (
@@ -187,13 +167,12 @@ export default function MessengerGroups() {
                       className={cn(
                         "flex flex-col p-3 max-w-[80%] mb-2 rounded-lg",
                         message.email === email
-                          ? "bg-blue-100 text-white self-start" // Message de l'utilisateur connecté
-                          : "bg-gray-100 text-gray-800 self-end" // Message des autres
+                          ? "bg-blue-100 text-white self-start"
+                          : "bg-gray-100 text-gray-800 self-end"
                       )}
                     >
                       <div className="flex items-center space-x-2">
                         <span className="font-semibold text-blue-700">{message.prenom}</span>
-                        {/* Affichage de l'heure et de la date */}
                         <span className="text-xs text-blue-400">{message.timestamp}</span>
                       </div>
                       <p className="mt-1">{message.content}</p>
@@ -204,8 +183,6 @@ export default function MessengerGroups() {
                 )}
               </div>
             </ScrollArea>
-
-            {/* Zone de saisie et envoi de message */}
             <div className="p-4 border-t border-gray-200 bg-white flex-shrink-0">
               <div className="flex space-x-2">
                 <Input
