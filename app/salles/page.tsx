@@ -1,5 +1,4 @@
 import MessengerGroups from "@/components/messenger-group/messenger-groups";
-import Salles from "@/components/messenger-group/page";
 
 export default function Home() {
   return (
