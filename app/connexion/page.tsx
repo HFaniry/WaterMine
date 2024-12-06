@@ -1,4 +1,5 @@
 import LoginPagem from '@/components/connexion/connexion'
+import { Navbar } from '@/components/navbar/navbar'
 
 export default function Home() {
   return (

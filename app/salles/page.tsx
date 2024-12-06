@@ -1,5 +1,5 @@
 import MessengerGroups from "@/components/messenger-group/messenger-groups";
-import Salles from "@/components/messenger-group/page";
+import { Navbar } from "@/components/navbar/navbar";
 
 export default function Home() {
   return (
