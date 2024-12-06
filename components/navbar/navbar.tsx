@@ -16,6 +16,7 @@ const navItems = [
   { href: "/", label: "Accueil" },
   { href: "/contact", label: "Contact" },
   { href: "/salles", label: "Salons" },
+  { href: "/3D", label: "3D" },
 ]
 
 const authItems = [
