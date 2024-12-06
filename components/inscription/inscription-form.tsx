@@ -74,51 +74,90 @@ export default function InscriptionForm() {
     }
   };
   
+  const containerStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '100vh',
+    backgroundImage: 'url("https://www.svgrepo.com/show/353912/waves.svg")', // Fond avec vagues
+    backgroundColor: '#b3e5fc', // Couleur océanique
+    backgroundSize: 'cover',
+    backgroundRepeat: 'repeat-x',
+    padding: '20px',
+  }
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle className="text-2xl font-bold text-center">Inscription</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <div className="flex flex-col items-center space-y-2">
-            <Avatar className="w-24 h-24">
-              <AvatarImage src={imagePreview || ''} alt="Avatar" />
-              <AvatarFallback>IMG</AvatarFallback>
-            </Avatar>
-            <Label htmlFor="picture" className="cursor-pointer text-sm text-blue-500 hover:text-blue-600">
-              Choisir une image
-            </Label>
-            <Input 
-              id="picture" 
-              type="file" 
-              accept="image/*" 
-              className="hidden" 
-              onChange={handleImageChange}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="prenom">Prénom</Label>
-            <Input id="prenom" placeholder="Votre prénom" onChange={handleInputChange} />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="nom">Nom</Label>
-            <Input id="nom" placeholder="Votre nom" onChange={handleInputChange} />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="votre@email.com" onChange={handleInputChange} />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Mot de passe</Label>
-            <Input id="password" type="password" placeholder="••••••••" onChange={handleInputChange} />
-          </div>
-          <Button type="submit" className="w-full">
-            S'inscrire
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+      <Card style={{...containerStyle}}
+        className="w-full max-w-lg mx-auto bg-gradient-to-br from-teal-400 via-sky-400 to-sky-500 shadow-xl rounded-xl" 
+        style={{ padding: '20px', margin: '0 auto' }}
+      >
+        <CardHeader>
+          <CardTitle className="text-5xl font-extrabold text-center text-white">Inscription</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div className="flex flex-col items-center space-y-4">
+              <Avatar className="w-28 h-28">
+                <AvatarImage src={imagePreview || ''} alt="Avatar" />
+                <AvatarFallback>IMG</AvatarFallback>
+              </Avatar>
+              <Label htmlFor="picture" className="cursor-pointer text-sm text-teal-700 hover:text-teal-700 transition-all">
+                Choisir une image
+              </Label>
+              <Input 
+                id="picture" 
+                type="file" 
+                accept="image/*" 
+                className="hidden" 
+                onChange={handleImageChange}
+              />
+            </div>
+            <div className="space-y-3">
+              <Label htmlFor="prenom" className="text-gray-700">Prénom</Label>
+              <Input 
+                id="prenom" 
+                placeholder="Votre prénom" 
+                onChange={handleInputChange}
+                className="border-2 border-teal-500 focus:ring focus:ring-teal-300"
+              />
+            </div>
+            <div className="space-y-3">
+              <Label htmlFor="nom" className="text-gray-700">Nom</Label>
+              <Input 
+                id="nom" 
+                placeholder="Votre nom" 
+                onChange={handleInputChange}
+                className="border-2 border-teal-500 focus:ring focus:ring-teal-300"
+              />
+            </div>
+            <div className="space-y-3">
+              <Label htmlFor="email" className="text-gray-700">Email</Label>
+              <Input 
+                id="email" 
+                type="email" 
+                placeholder="votre@email.com" 
+                onChange={handleInputChange}
+                className="border-2 border-teal-500 focus:ring focus:ring-teal-300"
+              />
+            </div>
+            <div className="space-y-3">
+              <Label htmlFor="password" className="text-gray-700">Mot de passe</Label>
+              <Input 
+                id="password" 
+                type="password" 
+                placeholder="••••••••" 
+                onChange={handleInputChange}
+                className="border-2 border-teal-500 focus:ring focus:ring-teal-300"
+              />
+            </div>
+            <Button 
+              type="submit" 
+              className="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-md transition-all duration-200"
+            >
+              S'inscrire
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
   )
 }

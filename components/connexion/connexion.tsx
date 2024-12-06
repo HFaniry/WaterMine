@@ -39,16 +39,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-lg bg-white shadow-xl rounded-xl" style={{ padding: '20px', margin: '0 auto' }}>
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">Connexion</CardTitle>
-          <CardDescription>Entrez vos identifiants pour vous connecter</CardDescription>
+          <CardTitle className="text-4xl font-extrabold text-teal-600">Connexion</CardTitle>
+          <CardDescription className="text-gray-700">Entrez vos identifiants pour vous connecter</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          {error && <p className="text-red-500">{error}</p>}
-          <div className="space-y-2">
-            <Label htmlFor="email">Adresse e-mail</Label>
+        <CardContent className="space-y-7">
+          {error && <p className="text-red-600">{error}</p>}
+          <div className="space-y-3">
+            <Label htmlFor="email" className="text-gray-700">Adresse e-mail</Label>
             <Input
               id="email"
               type="email"
@@ -56,25 +55,26 @@ export default function LoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="border-2 border-teal-400 focus:ring focus:ring-teal-500"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">Mot de passe</Label>
+            <Label htmlFor="password" className="text-gray-700">Mot de passe</Label>
             <Input
               id="password"
               type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="border-2 border-teal-400 focus:ring focus:ring-teal-500"
             />
           </div>
         </CardContent>
         <CardFooter>
-          <Button className="w-full" onClick={handleSubmit}>
+          <Button className="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-md transition-all duration-200" onClick={handleSubmit}>
             Se connecter
           </Button>
         </CardFooter>
       </Card>
-    </div>
   )
 }
